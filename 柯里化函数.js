@@ -34,24 +34,25 @@ function curryIt(fn) {
     }
 }
 
-var fn = function (a,b,c) { return a+b+c };
-console.log(currying(fn)(1)(4)(3));
+// var fn = function (a,b,c) { return a+b+c };
+// console.log(currying(fn)(1)(4)(3));
 
-
-
-
-
-function test(fn, args) {
-    let len = fn.length;
-    let args1 = args || [];
-    return function cu(args2) {
-        Array.prototype.push.call(args1, args2);
-        if(args1.length >= len) {
-            return fn.apply(this, args1);
-        } else {
-            return function(args3) {
-                return cu.call(this, args3);
+let args = [];
+function myCurry(a) {
+    args.push(a);
+    return function cur(arg) {
+        if(arg) {
+            args.push(arg);
+            return function(arg2) {
+                return cur.call(this, arg2);
             }
+        } else {
+            return args.reduce((a, b) => {
+                return a+b;
+            }, 0)
         }
     }
 }
+
+
+console.log(myCurry(1)(2)(3)(4)());
