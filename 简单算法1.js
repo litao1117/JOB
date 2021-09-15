@@ -239,3 +239,21 @@ let res = [...a1, ...a2].sort().map(item => {
     return item;
 })
 // console.log(res);
+
+
+/**
+ * 千分位分割符
+ */
+
+function splitStr(str, range = 3) {
+    const [left, right] = (str+'').split('.');
+    const arr = left.split('').reverse();
+    let res = [];
+    for(let i = 0; i < arr.length; i+=range) {
+        res.push(arr.slice(i, i+range).reverse().join(''));
+    }
+    console.log(res);
+    return right?`${res.reverse().join(',')}.${right}`:res.reverse().join(',');
+}
+
+// console.log(splitStr(1234567.45));
