@@ -10,15 +10,19 @@ function maxSubArr(arr) {
         return arr.sort()[0];
     }
     let max = 0;
-    let sum = 0;
-    for(let i of arr) {
-        sum += i;
-        if(max < sum)
+    let sum = 0, left = 0, right = 0;
+    for(let i = 0; i < arr.length; i++) {
+        sum += arr[i];
+        if(max < sum) {
             max = sum;
-        if(sum < 0)
+            right = i;
+        }
+        if(sum < 0) {
             sum = 0;
+            left = i+1;
+        }
     }
-    return max;
+    return [max, left, right];
 }
 
 console.log(maxSubArr([-2,1,-3,4,-1,2,1,-5,4]));

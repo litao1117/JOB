@@ -18,9 +18,9 @@ function repeat(func, times, delay) {
 }
 
 // function repeat(func, times, delay) {
-//   return function(...args) {
+//   return async function(...args) {
 //     for(let i = 0; i < times; i++) {
-//       setTimeout(() => {
+//       await setTimeout(() => {
 //         func.apply(this, args);
 //       },delay)
 //     }

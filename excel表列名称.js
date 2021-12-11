@@ -13,4 +13,4 @@ var convertToTitle = function(columnNumber) {
   return ans.reverse().join('')
 };
 
-console.log(convertToTitle(3));
+console.log(convertToTitle(51));

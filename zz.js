@@ -1,51 +1,71 @@
-function getCount(num) {
-    if(num < 10) return -1;
-    let count = 0;
-    while(num != 0) {
-        if(num >= 10) {
-            let cn = num - 6;
-            let a = Math.floor(cn / 4);
-            let b = cn % 4;
-            count += a;
-            if(b !== 0) {
-                num = b + 6;
-            }
-        } else if(num >= 6) {
-            num -= 3;
-            count++;
-        } else if(num >= 3) {
-            num -= 2;
-            count++;
+function curring(fn) {
+    const args = [];
+    return function curried(args1) {
+        Array.prototype.push.call(args, args1);
+        if(args.length >= fn.length) {
+            return fn.apply(this, args);
         } else {
-            num -= 1;
-            count++;
-        }
-    }
-    return count;
-}
-// console.log(getCount(16));
-
-function happyTriangle( length ) {
-    // write code here
-    length.sort((a, b) => a - b);
-    const len = length.length;
-    console.log(length);
-    let res = 0;
-    let k = 1;
-    for(let i = 0; i < len;) {
-        while(k < len) {
-            for(let j = k + 1; j < len; j++) {
-                if(length[j] < length[i] + length[k] && (length[k]!=length[i] || length[k]!=length[j]) && Math.pow(length[j], 2) != Math.pow(length[i], 2) + Math.pow(length[k], 2)) {
-                    res++;
-                } else {
-                    length[j] < length[i] + length[k+1]
-                }
+            return function(args2) {
+                return curried.call(this, args2);
             }
-            ++k;
         }
-        ++i;
-        k = i+1;
     }
-    return res;
 }
-console.log(happyTriangle([5,3,4,6,6,1]));
+function debounce(fn, time, immediate) {
+    let timer;
+    return function(...args) {
+        if(!timer && immediate) {
+            fn.apply(this, args);
+        }
+        timer && clearTimeout(timer);
+        timer = setTimeout(() => {
+            fn.apply(this, args);
+        }, time)
+    }
+}
+function throttle(fn, time) {
+    let can = true;
+    return function(...args) {
+        if(can) {
+            can = false;
+            setTimeout(() => {
+                fn.apply(this, args);
+                can = true;
+            }, time);
+        } else {
+            return;
+        }
+    }
+}
+
+Function.prototype.myCall = function(context) {
+    context = context || window;
+    context.fn = this;
+    const args = [...arguments].slice(1);
+    const result = context.fn(...args);
+    delete context.fn;
+    return result;
+}
+Function.prototype.myApply = function(context) {
+    context = context || window;
+    context.fn = this;
+    let result;
+    if(arguments[1]) {
+        result = context.fn(...arguments[1]);
+    } else {
+        result = context.fn();
+    }
+    delete context.fn;
+    return result;
+}
+Function.prototype.myBind = function(context) {
+    const _this = this;
+    const args = [...arguments].slice(1);
+    return function F() {
+        if(this instanceof F) {
+            return new _this(...args, ...arguments);
+        } 
+        return _this.apply(context, args.concat(...arguments))
+    }
+}
+

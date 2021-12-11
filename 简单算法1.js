@@ -128,8 +128,9 @@ function mergeArr(nums1, m, nums2, n) {
             tail--;
         }
     }
+    return nums1;
 }
-
+// console.log(mergeArr([1,4,7], 3, [2,3,6], 3));
 /**
  * 两个超大的数相加
  */
@@ -190,7 +191,7 @@ function oneCount() {
 // console.log(oneCount());
 
 
-// console.log(String(1231).match(/1/g));
+// console.log(String(3).match(/1/g));
 
 /**
  * 已知数组 a=[1,[2,[3,[4,null]]]], 实现数组 b=[4,[3,[2,[1,null]]]] ，考虑n级嵌套的情况
@@ -204,7 +205,7 @@ function atob(arr) {
     }
     return reverse(arr);
 }
-
+// console.log(atob([1,[2,[3,[4,null]]]]));
 /**
  * 对象数组去重
  */
@@ -215,7 +216,7 @@ const list = [
     {id: 3, name: 2},
     {id: 1, name: 2},
 ]
-const result = list.reduce((acc, cur) => {
+const resule = list.reduce((acc, cur) => {
     let items = acc.map(item => item.id);
     return items.includes(cur.id) ? acc : [...acc, cur];
 }, [])
@@ -257,3 +258,31 @@ function splitStr(str, range = 3) {
 }
 
 // console.log(splitStr(1234567.45));
+
+// 利用栈进行排序
+function StackSort(sta) {
+    let len = sta.length;
+    let res = [];
+    let j = 0; // 记录出栈次数
+    while(sta.length > 0) {
+        let temp = sta.pop();
+        if(res.length != 0) {
+            // 将较大的数弹出栈
+            while(res.length>0&&res[res.length-1]>temp) {
+                sta.push(res.pop());               
+                j++;
+            }
+            // 将小的这个数推入栈中
+            res.push(temp);
+            // 将原来的数再次填入栈中
+            while(j-->0) {
+                res.push(sta.pop());
+            }
+        } else {
+            res.push(temp);
+        }
+    }
+    return res;
+}
+
+// console.log(StackSort([8,4,5,7,2,6]));

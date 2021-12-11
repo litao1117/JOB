@@ -38,3 +38,17 @@ const task = () => {
 }
 const debounceTask = debounce(task, 1000)
 window.addEventListener("scroll", debounceTask);
+
+// 第一次执行
+function debounceFirst(fn, wait, immediate) {
+    let timer = null;
+    return function(...args) {
+        if(immediate && !timer) {
+            fn.apply(this, args)
+        }
+        timer && clearTimeout(timer);
+        timer = setTimeout(() => {
+            fn.apply(this, args);
+        }, wait);
+    }
+}

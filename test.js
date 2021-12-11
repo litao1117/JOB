@@ -1,5 +1,5 @@
 // 'use strict';
-a = 2;
+
 // console.log(a);
 /** */
 // let n = 16;
@@ -110,25 +110,28 @@ const regexp = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/u
 
 
 
-setTimeout(() => {
-    console.log(1);
-})
+// setTimeout(() => {
+//     console.log(1);
+// })
  
-const p1 = Promise.resolve(() => {
-    console.log(2);
-})
+// const p1 = Promise.resolve(() => {
+//     console.log(2);
+// })
  
-const p2 = new Promise((resolve, reject) => {
-    console.log(3);
-    resolve();
-})
+// const p2 = new Promise((resolve, reject) => {
+//     console.log(3);
+//     resolve();
+// })
  
-Promise.race([p1, p2]).then(() => {
-    console.log(4);
-})
+// Promise.race([p1, p2]).then(() => {
+//     console.log(4);
+// })
  
-Promise.all([p1, p2]).then(() => {
-    console.log(5);
-})
+// Promise.all([p1, p2]).then(() => {
+//     console.log(5);
+// })
  
-console.log(6);
+// console.log(6);
+
+
+console.log(15 || 10);

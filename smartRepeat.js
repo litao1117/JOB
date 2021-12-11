@@ -52,6 +52,6 @@ function smartRepeat(templateStr) {
 }
 
 let res = "1[2[a]]";
-// console.log(res.match(/^(\d+)\[/));
+console.log(res.match(/^(\d+)(\[)/));
 
-console.log(smartRepeat("3[2[3[a]1[b]]4[d]]"));
+// console.log(smartRepeat("3[2[3[a]1[b]]4[d]]"));

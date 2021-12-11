@@ -11,7 +11,7 @@ const constantize = obj => {
     })
 }
 
-for(let i = 0; i < 3; i++) {
+for(var i = 0; i < 3; i++) {
     let i = 'abc';
     console.log(i);
 }

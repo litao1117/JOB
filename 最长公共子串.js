@@ -19,7 +19,6 @@ function maxLenStr(str1, str2) {
           max = dp[i][j];
           index = i;
         }
-
       } else {
         dp[i][j] = 0;
       }

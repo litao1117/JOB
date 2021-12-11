@@ -33,7 +33,7 @@ function Retry(fn, times, delay) {
 function getRandom(){
     return new Promise((resolve, reject) => {
         let data = Math.random() * 10;
-        if(data > 10){
+        if(data > 5){
             resolve(data)
         }else{
             reject(data)
