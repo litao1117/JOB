@@ -66,3 +66,18 @@ function mergePromise(ajaxArray) {
     // 最后得到的promise的值就是data
     return promise;
 } 
+
+// promisify
+function promisify(fn) {
+    return function(...args) {
+        return new Promise((resolve, reject) => {
+            args.push(function(err, ...values) {
+                if(err) {
+                    reject(err);
+                }
+                resolve(values);
+            })
+            Reflect.apply(fn, this, args);
+        })
+    }
+}
