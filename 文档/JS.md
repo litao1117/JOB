@@ -1,3 +1,5 @@
+# JS同步、异步、阻塞、非阻塞、事件循环、消息队列
+https://www.jianshu.com/p/a81a6ed3ef3a
 # JavaScript继承
 ## 继承方式
 ```js
