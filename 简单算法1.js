@@ -130,7 +130,7 @@ function mergeArr(nums1, m, nums2, n) {
     }
     return nums1;
 }
-// console.log(mergeArr([1,4,7], 3, [2,3,6], 3));
+// console.log(mergeArr([7,8,9], 3, [2,3,6], 3));
 /**
  * 两个超大的数相加
  */
@@ -184,7 +184,9 @@ function addBigNum(a, b) {
 function oneCount() {
     let num = 0;
     for(let i = 1; i <= 400; i++) {
-        num += String(i).length-String(i).replace(/1/g, '').length;
+        // num += String(i).length-String(i).replace(/1/g, '').length;
+        let arr = String(i).match(/1/g) || [];
+        num += arr.length;
     }
     return num;
 }
@@ -286,3 +288,147 @@ function StackSort(sta) {
 }
 
 // console.log(StackSort([8,4,5,7,2,6]));
+
+
+// 实现lazyMan类
+class LazyManClass {
+    constructor(name) {
+        this.name = name;
+        this.queue = [];
+        console.log(`Hi, I am ${name}`);
+        setTimeout(() => {
+            this.next();
+        }, 0);
+    }
+    next() {
+        const fn = this.queue.shift();
+        fn && fn();
+    }
+    sleepFirst(time) {
+        const fn = () => {
+            setTimeout(() => {
+                console.log(`等待了${time}s`)
+                this.next();
+            }, time)
+        }
+        this.queue.unshift(fn);
+        return this;
+    }
+    sleep(time) {
+        const fn = () => {
+            setTimeout(() => {
+                console.log(`等待了${time}s`)
+                this.next();
+            }, time)
+        }
+        this.queue.push(fn);
+        return this;
+    }
+    eat(food) {
+        const fn = () => {
+            console.log(`I am eating ${food}`)
+            this.next();
+        }
+        this.queue.push(fn);
+        return this;
+    }
+}
+function lazyMan(name) {
+    return new LazyManClass(name);
+}
+
+// lazyMan('Tom').eat('lunch').eat('dinner').sleepFirst(3).sleep(5).eat('food');
+
+
+// 求两个数组的交集
+function intersection(arr1, arr2) {
+    return arr1.filter((item) => {
+        return arr2.includes(item);
+    })
+}
+
+// 旋转一维数组
+function rotate(arr, k) {
+    const len = arr.length;
+    const step = k % len;
+    return arr.slice(-step).concat(arr.slice(0, len-step));
+}
+// console.log(rotate([1,2,3,4,5,6], 7));
+
+// 打印1-10000之间所有的对称数
+[...Array(10000).keys()].filter(x => {
+    return x.toString().length > 1 && x === Number(x.toString().split('').reverse().join(''));
+})
+
+// 给定两个大小为m和n的有序数组，找出这两个数组的中位数，时间复杂度O(log(n+m))
+function findMedianSortedArrays(nums1, nums2) {
+    const len1 = nums1.length;
+    const len2 = nums2.length;
+    const median = Math.ceil((len1 + len2 + 1) / 2);
+    const res = [];
+    let i = 0, j = 0;
+    for(let k = 0; k < median; k++) {
+        if(i < len1 && j < len2) {
+            if(nums1[i] < nums2[j]) {
+                res[i + j] = nums1[i++];
+            } else {
+                res[i + j] = nums2[j++];
+            }
+        } else if(i < len1) {
+            res[i + j] = nums1[i++];
+        } else if(j < len2) {
+            res[i + j] = nums2[j++];
+        }
+    }
+    const isOddLen = (len1 + len2) % 2 === 0;
+    if(isOddLen) {
+        return (res[median - 1] + res[median - 2]) / 2;
+    } else {
+        return res[median - 1];
+    }
+}
+// console.log(findMedianSortedArrays([1,3], [2]));
+
+// 给你一个数组，可以对数组任意区间反转，也可以不反转，求最大连续和
+// 1。暴力
+// function maxContinueSum(arr) {
+//     let ans = 0;
+//     let len = arr.length;
+//     let sum = [arr[0]]; // 前缀和
+//     let mx = [arr[0]];  // 不反转最大连续和
+//     let mval = [0];
+//     for(let j = 1; j < len; j++) {
+//         sum[j] = sum[j-1] + arr[j];
+//     }
+//     for(let i = 1, s = arr[0]; i < arr.length; i++) {
+//         s += arr[i];
+//         if(s < 0) s = 0;
+//         mx[i] = Math.max(mx[i-1], s)
+//         mval[i] = Math.max(mval[i-1], mx[i] - sum[i]);
+//         ans = Math.max(ans, sum[i] + mval[i-1]);
+//     }
+//     return ans;
+// }
+// console.log(maxContinueSum([-1,3,-5,2,-1,3]));
+
+
+// 最长回文子串
+// 1
+function longestPalindrome(s) {
+    if(!s || s.length < 2) return s;
+    let res = '';
+    function centerExpand(i, j) {
+        while(i >= 0 && j < s.length && s[i] == s[j]) {
+            i--;
+            j++;
+            if(j-i-1 > res.length) {
+                res = s.slice(i+1, j);
+            }
+        }
+    }
+    for(let i = 0; i < s.length; i++) {
+        centerExpand(i, i);
+        centerExpand(i, i+1);
+    }
+    return res;
+}

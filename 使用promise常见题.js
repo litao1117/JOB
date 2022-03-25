@@ -2,7 +2,7 @@
  * 使用promise实现每隔1秒输出1，2，3
  */
 
-const arr = [1,2,3];
+// const arr = [1,2,3];
 arr.reduce((p, x) => {
     return p.then(() => {
         return new Promise(resolve => {
@@ -81,3 +81,46 @@ function promisify(fn) {
         })
     }
 }
+
+// 并行的promise调度器
+class Scheduler {
+    constructor(limit) {
+        this.queue = [];
+        this.maxCounts = limit;
+        this.runCounts = 0;
+    }
+    add(time, n) {
+        const promiseCreator = () => {
+            return new Promise((res, rej) => {
+                setTimeout(() => {
+                    console.log(n);
+                    res();
+                }, time);
+            })
+        }
+        this.queue.push(promiseCreator);
+    } 
+    start() {
+        for(let i = 0; i < this.maxCounts; i++) {
+            this.request();
+        }
+    }
+    request() {
+        if(!this.queue || !this.queue.length || this.runCounts == this.maxCounts) {
+            return;
+        }
+        this.runCounts++;
+        this.queue
+            .shift()()
+            .then(() => {
+                this.runCounts--;
+                this.request();
+            })
+    }
+}
+// let s = new Scheduler(2);
+// s.add(1000, 3);
+// s.add(300, 1);
+// s.add(500, 2);
+// s.add(600, 4);
+// s.start();

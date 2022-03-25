@@ -21,5 +21,5 @@ function toChineseNum(num) {
         return chinese[n];
     }
 }
-// console.log(toChineseNum(11001000));   
+console.log(toChineseNum(12345));   
 // console.log('1亿0千1百1十零万1千1百1十1'.replace(/零([万亿])/g, '$1'));         

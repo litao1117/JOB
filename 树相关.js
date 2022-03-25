@@ -95,3 +95,30 @@ function bfs(root) {
   }
   return res;
 }
+
+// 二叉树的深度
+// 递归
+function maxDepth(root) {
+  if(!root) return 0;
+  let leftDepth = maxDepth(root.left);
+  let rightDepth = maxDepth(root.right);
+  return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+}
+
+// 广度遍历
+function maxDepth1(root) {
+  if(!root) return 0;
+  let queue = [root];
+  let depth = 0;
+  while(queue.length) {
+    let queueLength = queue.length;
+    while(queueLength) {
+      let node = queue.shift();
+      if(node.left) queue.push(node.left);
+      if(node.right) queue.push(node.right);
+      queueLength--;
+    }
+    depth++;
+  }
+  return depth;
+}

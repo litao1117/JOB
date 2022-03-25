@@ -2,7 +2,7 @@
  * 柯里化
  */
 
-function currying(fn, args) {
+function currying(fn, ...args) {
     let len = fn.length;
     let args1 = args || [];
     return function curried(arg) {

@@ -17,15 +17,18 @@ function repeat(func, times, delay) {
   }
 }
 
-// function repeat(func, times, delay) {
-//   return async function(...args) {
-//     for(let i = 0; i < times; i++) {
-//       await setTimeout(() => {
-//         func.apply(this, args);
-//       },delay)
-//     }
-//   }
-// }
+function repeat(func, times, delay) {
+  return async function(...args) {
+    for(let i = 0; i < times; i++) {
+      await new Promise((res, rej) => {
+        setTimeout(() => {
+          func.apply(this, args);
+          res();
+        }, delay)
+      })
+    }
+  }
+}
 
 
 const repeatFunc = repeat(console.log, 4, 1000)

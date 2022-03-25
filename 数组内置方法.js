@@ -86,3 +86,19 @@ Array.prototype.myReduce = function(fn) {
     return value;
 }
 
+Array.prototype.myReduce2 = function(fn, ...args) {
+    if(typeof fn !== 'function') {
+        throw new TypeError(fn + 'is not a function');
+    }
+    let start = 0, pre;
+    if(args.length) {
+        pre = args[0];
+    } else {
+        pre = this[0];
+        start = 1;
+    }
+    for(let i = start; i < this.length; i++) {
+        pre = fn(pre, this[i], i, this);
+    }
+    return pre;
+}
