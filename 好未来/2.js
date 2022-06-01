@@ -1,5 +1,17 @@
-const foo = async() => 1;
-console.log(foo().toString())
+class C {
+    rand() {
+        console.log('rand');
+    }
+}
+var c = new C();
+c.rand();
+C.rand = function() {
+    console.log('1');
+}
+C.prototype.rand = function() {
+    console.log(2);
+}
+var c2 = new C();
+c2.rand();
 
-const a = () => {};
-console.log(a().toString());
+C.rand()

@@ -1,0 +1,1 @@
+内置类型：numbers，strings，booleans，lists，maps，runes，symbols
