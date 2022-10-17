@@ -90,31 +90,39 @@
 // console.log('script end')//4
 
 // console.log('3452323'.match(/1/g))
-var result = [];
 
-a = 3;
+// var result = [];
+// a = 3;
+// var total = 0;
+// function foo(a) {
+//  var i = 0;
+//  for (; i < 3; i = i + 1) {
+//    result[i] = function() {
+//      total += i * a;
+//      console.log(i);
+//      console.log(a);
+//      console.log(total);
+//    };
+//  }
+// }
+// foo(1);
+// result[0](); //3
+// result[1](); //6
+// result[2](); //9
 
-var total = 0;
+// Object.prototype.a = 'object'; 
+// Function.prototype.a='function'; 
+// function Person(){}; 
+// var child = new Person();
+// console.log(Person.a);
+// console.log(child.a);
 
-function foo(a) {
-
- var i = 0;
-
- for (; i < 3; i = i + 1) {
-
-   result[i] = function() {
-
-     total += i * a;
-
-     console.log(total);
-
-   };
-
- }
-
+function A() {
+    return {b: 1};
 }
 
-foo(1);
-result[0]();
-result[1]();
-result[2]();
+let a = new A();
+console.log(a);
+
+// 面试官您好，我叫李涛，来自山西，毕业于太原理工大学软件工程专业，在校期间，在接触到前端时，对前端产生了兴趣，所以自学前端。
+// 我在xxx,xxx,xxx有过工作经历，岗位都是前端开发。

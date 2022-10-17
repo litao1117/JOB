@@ -18,6 +18,10 @@ class EventEmitter {
     // 取消事件
     remove(name, cb) {
         const query = this.events[name];
+        if (!cb) {
+            delete this.events[name];
+            return this;
+        }
         this.events[name] = query && query.filter(fn => fn !== cb);  
         return this;
     }

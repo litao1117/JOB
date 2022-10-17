@@ -57,6 +57,7 @@ function findChild(arr, pid) {
 // }
 // console.log(JSON.stringify(findChild(arr, null)));
 let a = arr2tree(arr);
+// console.log(a);
 
 /**
  * 树转数组

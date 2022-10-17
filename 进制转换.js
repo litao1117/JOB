@@ -39,7 +39,7 @@ function toBase(n, m) {
 /**
  * 把一个数按照传参进制转换为十进制
  */
-
+// 101
 function parse_int(n, m) {
     n = (n + '').toUpperCase();
     let res = 0, abs = 1, len = n.length, i;
@@ -47,8 +47,20 @@ function parse_int(n, m) {
         abs = -1;
         n = n.substring(1);
     }
-    for(i = len - 1; i >= 0; i--) {
-        res += digits.indexOf(n[len-1-i]) * Math.pow(m, i);
+    // for(i = len - 1; i >= 0; i--) {
+    //     res += digits.indexOf(Number(n[len-1-i])) * Math.pow(m, i);
+    // }
+    for (let i = 0; i < len; i++) {
+        if (n[i].charCodeAt() > 57 || n[i].charCodeAt() < 48) {
+            n = n.substring(0, i);
+            break;
+        }
+    }
+    len = n.length;
+    for (let i = 0; i < len; i++) {
+        res += digits.indexOf(Number(n[i])) * Math.pow(m, len-1-i)
     }
     return abs * res;
 }
+
+console.log(parse_int('101a2', 2))

@@ -33,16 +33,13 @@ function nthMax3( nums ) {
             min = num;
         }
     }
-    console.log(max);
-    console.log(min);
-    console.log(mid);
     if(min == undefined || mid == undefined) {
         return max;
     }
     return min;
 }
 
-// console.log(nthMax3([3,2,1]));
+console.log(nthMax3([3,2]));
 
 
 

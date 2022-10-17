@@ -36,8 +36,8 @@ function throttle(func, ms = 1000) {
 const task = () => {
     console.log('run task');
 }
-const debounceTask = debounce(task, 1000)
-window.addEventListener("scroll", debounceTask);
+// const debounceTask = debounce(task, 1000)
+// window.addEventListener("scroll", debounceTask);
 
 // 第一次执行
 function debounceFirst(fn, wait, immediate) {
@@ -52,3 +52,25 @@ function debounceFirst(fn, wait, immediate) {
         }, wait);
     }
 }
+
+// async/awiat 防抖节流
+function debounceA(fn, delay) {
+    let timer;
+    return function(...args) {
+        return new Promise((resolve, reject) => {
+            if(timer) {
+                clearTimeout(timer)
+            }
+            timer = setTimeout(() => {
+                fn.apply(this, args)
+                resolve()
+            }, delay)
+        })
+    }
+}
+
+const d = debounceA(()=>{console.log(1)}, 3000);
+(async () => {
+    await d()
+    await d()
+})()

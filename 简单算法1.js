@@ -84,7 +84,7 @@ function mergeTwoLists(l1, l2) {
 
 /**
  * 5.删除排序数组中的重复项,返回新数组长度，你不需要考虑数组中超出新长度后面的元素。
- * splice
+ * splice[1,2,2,2,3,3,4]
  * 
  */
 
@@ -108,7 +108,7 @@ function removeDuplicates2(nums) {
     }
     return len;
 }
-// console.log(removeDuplicates2([1,1,1,2,3]));
+// console.log(removeDuplicates2([1,2,1,3,1]));
 /**
  * 有序数组合并
  */
@@ -134,45 +134,54 @@ function mergeArr(nums1, m, nums2, n) {
 /**
  * 两个超大的数相加
  */
-a = "12346";
-b = "2453";
+a = "125346";
+b = "246853";
 function addBigNum(a, b) {
     let arrA = a.split("").reverse();
     let arrB = b.split("").reverse();
     let aLen = arrA.length;
     let bLen = arrB.length;
     let shortArr, shortLen, longArr, longLen;
+    // 短数组用0补全
     if(aLen < bLen) {
         shortArr = arrA;
         shortLen = aLen;
         longLen = bLen;
         longArr = arrB;
+        for (let i = aLen; i < bLen; i++) {
+            arrA.push(0);
+        }
     } else {
         shortArr = arrB;
         shortLen = bLen;
         longLen = aLen;
         longArr = arrA;
+        for (let i = bLen; i < aLen; i++) {
+            arrB.push(0);
+        }
     }
     let result = [];
     let add = 0;
-    for(let i = 0; i < shortLen; i++) {
+    for(let i = 0; i < arrA.length; i++) {
         let temp = (parseInt(arrA[i])+parseInt(arrB[i])+add)%10;
         result.push(temp);
         add = Math.floor((parseInt(arrA[i])+parseInt(arrB[i])+add)/10);
     }
-    if(shortLen === longLen) {
+    // if(s hortLen === longLen) {
+    if (add > 0) {
         result.push(add);
-    } else {
-        for(let i = shortLen; i < longLen; i++) {
-            if(i === longLen-1) {
-                result.push(parseInt(longArr[i])+add)
-            } else {
-                let temp = (parseInt(longArr[i])+add)%10;
-                result.push(temp);
-                add = Math.floor((parseInt(longArr[i])+add)/10);
-            }
-        }
     }
+    // } else {
+    //     for(let i = shortLen; i < longLen; i++) {
+    //         if(i === longLen-1) {
+    //             result.push(parseInt(longArr[i])+add)
+    //         } else {
+    //             let temp = (parseInt(longArr[i])+add)%10;
+    //             result.push(temp);
+    //             add = Math.floor((parseInt(longArr[i])+add)/10);
+    //         }
+    //     }
+    // }
     return result.reverse().join("");
 }
 // console.log(addBigNum(a,b));
@@ -193,7 +202,7 @@ function oneCount() {
 // console.log(oneCount());
 
 
-// console.log(String(3).match(/1/g));
+// console.log(String(3112).match(/1/g));
 
 /**
  * 已知数组 a=[1,[2,[3,[4,null]]]], 实现数组 b=[4,[3,[2,[1,null]]]] ，考虑n级嵌套的情况
@@ -270,14 +279,14 @@ function StackSort(sta) {
         let temp = sta.pop();
         if(res.length != 0) {
             // 将较大的数弹出栈
-            while(res.length>0&&res[res.length-1]>temp) {
+            while(res.length > 0 && res[res.length-1] > temp) {
                 sta.push(res.pop());               
                 j++;
             }
             // 将小的这个数推入栈中
             res.push(temp);
             // 将原来的数再次填入栈中
-            while(j-->0) {
+            while(j-- > 0) {
                 res.push(sta.pop());
             }
         } else {
@@ -309,7 +318,7 @@ class LazyManClass {
             setTimeout(() => {
                 console.log(`等待了${time}s`)
                 this.next();
-            }, time)
+            }, time*1000)
         }
         this.queue.unshift(fn);
         return this;
@@ -319,7 +328,7 @@ class LazyManClass {
             setTimeout(() => {
                 console.log(`等待了${time}s`)
                 this.next();
-            }, time)
+            }, time*1000)
         }
         this.queue.push(fn);
         return this;
@@ -412,7 +421,7 @@ function findMedianSortedArrays(nums1, nums2) {
 // console.log(maxContinueSum([-1,3,-5,2,-1,3]));
 
 
-// 最长回文子串
+// 最长回文子串：中心扩展
 // 1
 function longestPalindrome(s) {
     if(!s || s.length < 2) return s;
@@ -432,3 +441,105 @@ function longestPalindrome(s) {
     }
     return res;
 }
+
+// 多层拍平数组
+function flatArray(arr, num = 1) {
+    if (!Number(num) || Number(num) < 0) {
+        return arr;
+    }
+    let newArr = [];
+    arr.forEach((item) => {
+        if (Array.isArray(item)) {
+            newArr = newArr.concat(flatArray(item, --num));
+        } else {
+            newArr.push(item);
+        }
+    })
+    return newArr;
+}
+// console.log(flatArray([1,2,[4,6,[7, 8]]], 2));
+
+// 矩阵旋转90度
+function rotate90(matrix) {
+    const n = matrix.length;
+    for (let i = 0; i < Math.floor(n / 2); i++) {
+        for(let j = 0; j < Math.floor((n+1)/2); j++) {
+            const temp = matrix[i][j];
+            matrix[i][j] = matrix[n-j-1][i];
+            matrix[n-j-1][i] = matrix[n-i-1][n-j-1];
+            matrix[n-i-1][n-j-1] = matrix[j][n-i-1];
+            matrix[j][n-i-1] = temp;
+        }
+    }
+    return matrix;
+}
+function rotate902(matrix) {
+    const n = matrix.length;
+    const matrix_new = new Array(n).fill(0).map(() => new Array(n).fill(0));
+    for(let i = 0; i < n; i++) {
+        for(let j = 0; j < n; j++) {
+            matrix_new[j][n-i-1] = matrix[i][j]
+        }
+    }
+    return matrix_new;
+}
+
+// 两个增序数组是否是包含关系 要求O(n)
+function includes(arr1, arr2) {
+    if (arr1.length === 0) return false;
+    let n = arr2.length;
+    let l1 = 0, r1 = n - 1, l2 = 0, r2 = n - 1;
+    for(let i = 0; i < arr1.length; i++) {
+        if (l1 > r1) {
+            return true;
+        }
+        if (arr1[l1] === arr2[l2] && arr1[r1] === arr2[r2]) {
+            l1++;
+            l2++;
+            r1--;
+            r2--;
+        } else {
+            l1++;
+            r1++;
+        }
+    }
+    return false;
+}
+// console.log(includes([1, 2, 3, 4, 5, 6, 7, 8], [2,4,5]))
+
+// 最长无重复字符串：滑动窗口
+function maxNoRepeat(str) {
+    let r = -1, ans = 0;
+    let set = new Set();
+    for(let i = 0, n = str.length; i < n; i++) {
+        if (i !== 0) {
+            set.delete(str[i-1])
+        }
+        while(r + 1 < n && !set.has(str[r + 1])) {
+            set.add(str[r + 1])
+            ++r
+        }
+        ans = Math.max(ans, r - i + 1)
+    }
+    return ans;
+}
+
+// 二分搜索
+function BinarySearch(arr, target) {
+    let right = arr.length - 1;
+    let left = 0;
+    let mid = Math.floor((left + right) / 2);
+    while(left < right) {
+        if (arr[mid] > target) {
+            right = mid;
+        } else if (arr[mid] < target) {
+            left = mid;
+        } else {
+            return mid;
+        }
+        mid = Math.floor((left + right) / 2);
+    }
+    return -1;
+}
+
+// console.log(BinarySearch([1,3,4,5,6,8,9,12,15], 4));

@@ -20,6 +20,7 @@ xhr.onreadystatechange = function() {
 }
 xhr.open('get', 'http://js.com/day6/ajax_get.php');
 xhr.send(null);
+// xhr.abort()
 
 
 

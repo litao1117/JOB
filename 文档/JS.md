@@ -437,3 +437,22 @@ OK~完美实现！
 # TS的优势与ES6对比
 
 https://www.jianshu.com/p/d2d15111f9d4  
+
+# class 在 es5 和 es6 的区别
+1. es5中是通过构造函数来实现class的，es6则可以使用class关键字。
+2. es5可以变量提升，而es6 class不可以
+3. class不可遍历在他原型上的属性和方法
+4. class有static方法，只能通过类调用，不会出现在实例上，this指向类。
+
+# 模块化
+就是JS中将不同功能的代码封装在不同的文件中，再互相引用时不会发生命名冲突的一种思想。
+## CommonJS
+CommonJS是nodejs中使用的模块化规范。
+使用require引用模块，module.exports\exports 导出模块。
+## ES Module
+ES6模块功能主要由两个命令构成：export和import。export命令用于规定模块的对外接口，import命令用于输入其他模块提供的功能。
+二者都可以通过as来给要导出或者引入的变量重命名
+## 对于CommonJS和ES6模块
+CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+CommonJS 模块的require()是同步加载模块，ES6 模块的import命令是异步加载，有一个独立的模块依赖的解析阶段。

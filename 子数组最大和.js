@@ -26,4 +26,12 @@ function maxSubArr(arr) {
     return [max, left, right];
 }
 
-console.log(maxSubArr([-2,1,-3,4,-1,2,1,-7,4]));
+function maxSubArr2(nums) {
+    let max = nums[0];
+    for (let i = 1; i < nums.length; i++) {
+        nums[i] = Math.max(0, nums[i-1]) + nums[i];
+        if (max < nums[i]) max = nums[i];
+    }
+    return max;
+}
+console.log(maxSubArr2([-2,1,-3,4,-1,2,1,-7,4]));

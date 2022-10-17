@@ -90,15 +90,26 @@ Array.prototype.myReduce2 = function(fn, ...args) {
     if(typeof fn !== 'function') {
         throw new TypeError(fn + 'is not a function');
     }
+    let len = this.length;
     let start = 0, pre;
     if(args.length) {
         pre = args[0];
     } else {
-        pre = this[0];
-        start = 1;
+        while(start < len && !(start in this)) {
+            start++
+        }
+        if (start >= len) {
+            throw new Error('xxx')
+        }
+        pre = this[start++];
     }
     for(let i = start; i < this.length; i++) {
-        pre = fn(pre, this[i], i, this);
+        if (i in this)
+            pre = fn(pre, this[i], i, this);
     }
     return pre;
 }
+
+let array = [,1,2,3,,4];
+console.log(array.myReduce2((a, b) => a + b));
+
